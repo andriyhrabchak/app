@@ -23,7 +23,7 @@ int main(void)
    * NET_SHELL is enabled to test ping, DNS etc
    */
 
-  LOG_WRN("My 'Hello World!' v%s on %s", APP_VERSION_STRING, CONFIG_BOARD);
+  LOG_WRN("'Hello World!' v%s on %s", APP_VERSION_STRING, CONFIG_BOARD);
   
   if (ioexp_is_ready()) {
 
