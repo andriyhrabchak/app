@@ -19,7 +19,8 @@ LOG_MODULE_REGISTER(main, CONFIG_LOG_DEFAULT_LEVEL);
 
 int main(void)
 {
-  /* NET_CONFIG_SETTINGS will init DHCP
+  /* 
+   * NET_CONFIG_SETTINGS will init DHCP
    * NET_SHELL is enabled to test ping, DNS etc
    */
 
