@@ -1,0 +1,25 @@
+identifier: esp32_mtsatlan_b/esp32/procpu
+name: F&F 'MTSATLAN/B' ESP32-WROOM-32E PROCPU
+type: mcu
+arch: xtensa
+toolchain:
+  - zephyr
+supported:
+  - adc
+  - dac
+  - gpio
+  - i2c
+  - watchdog
+  - uart
+  - nvs
+  - pwm
+  - dac
+  - spi
+  - counter
+  - entropy
+  - input
+testing:
+  ignore_tags:
+    - net
+    - bluetooth
+vendor: f&f

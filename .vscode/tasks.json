@@ -1,0 +1,103 @@
+{
+	"version": "2.0.0",
+  "tasks": [
+    {
+      "label": "West Build",
+      "type": "shell",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "command": "west",
+      "args": [
+        "build",
+        "-p",
+        "auto",
+        "-b",
+        "esp32_mtsatlan_b/esp32/procpu"
+      ],
+      "problemMatcher": [
+        "$gcc"
+      ],
+    },
+    {
+      "label": "West Configurable Build",
+      "type": "shell",
+      "group": {
+        "kind": "build",
+      },
+      "command": "west",
+      "args": [
+        "build",
+        "-p",
+        "${input:pristine}",
+        "-b",
+        "${input:board}"
+      ],
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "West Flash",
+      "type": "shell",
+      "command": "west",
+      "args": [
+        "flash",
+        "--esp-device",
+        "COM17"
+      ],
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "West Menuconfig",
+      "type": "shell",
+      "command": "west",
+      "args": [
+        "build",
+        "-t",
+        "guiconfig"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "West Espressif Monitor",
+      "type": "shell",
+      "command": "west",
+      "args": [
+        "espressif",
+        "-p",
+        "COM17",
+        "-b",
+        "115200",
+        "monitor"
+      ],
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "board",
+      "type": "pickString",
+      "default": "esp32_mtsatlan_b/esp32/procpu",
+      "options": [
+        "esp32_mtsatlan_b/esp32/procpu",
+        "esp32_ethernet_kit"
+      ],
+      "description": "See https://docs.zephyrproject.org/latest/boards/index.html"
+    },
+    {
+      "id": "pristine",
+      "type": "pickString",
+      "description": "Choose when to run a pristine build",
+      "default": "always",
+      "options": [
+        "auto",
+        "always",
+        "never"
+      ]
+    }
+  ]
+}

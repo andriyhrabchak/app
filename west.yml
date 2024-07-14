@@ -1,0 +1,17 @@
+manifest:
+  remotes:
+    - name: zephyrproject-rtos
+      url-base: https://github.com/zephyrproject-rtos
+    - name: zephyr-sylvio
+      url-base: https://github.com/sylvioalves
+    - name: zephyr-iwasz
+      url-base: https://github.com/iwasz
+  projects:
+    - name: zephyr
+      remote: zephyr-iwasz
+      revision: initialize_ref_clk_in_mdio_esp32
+      import: 
+        name-allowlist:
+          - hal_espressif
+  self:
+    path: app

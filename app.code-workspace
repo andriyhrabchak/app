@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+  ],
+  "settings": {
+    "files.associations": {
+      "byteorder.h": "c",
+      "modbus.h": "c",
+      "array": "c",
+      "string": "c",
+      "string_view": "c",
+      "*.tcc": "c",
+      "system_error": "c",
+      "functional": "c",
+      "regex": "c",
+      "tuple": "c",
+      "type_traits": "c",
+      "utility": "c",
+      "gpio_utils.h": "c",
+      "toolchain.h": "c",
+      "hwinfo.h": "c",
+      "gpio.h": "c",
+      "ioexp.h": "c"
+    }
+  }
+}
