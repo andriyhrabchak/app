@@ -23,7 +23,7 @@
 		zephyr,console = &uart0;
 		zephyr,shell-uart = &uart0;
 		zephyr,flash = &flash0;
-		zephyr,rtc = &rv3028;
+		zephyr,rtc = &rv3032;
 		zephyr,code-partition = &slot0_partition;
 	};
 
@@ -114,8 +114,8 @@
 &i2c0 {
 	status = "okay";
 	clock-frequency = <I2C_BITRATE_STANDARD>;
-	sda-gpios = <&gpio1 33 GPIO_OPEN_DRAIN>;
-	scl-gpios = <&gpio1 32 GPIO_OPEN_DRAIN>;
+	sda-gpios = <&gpio1 1 GPIO_OPEN_DRAIN>;
+	scl-gpios = <&gpio1 0 GPIO_OPEN_DRAIN>;
 	pinctrl-0 = <&i2c0_default>;
 	pinctrl-names = "default";
 	pcf8574t: pcf8574t@20 {
@@ -132,9 +132,9 @@
       line-name = "DE-nRE";
     };
   };
-	rv3028: rv3028@51 {
+	rv3032: rv3032@51 {
     status = "okay";
-		compatible = "microcrystal,rv3028";
+		compatible = "microcrystal,rv3032";
     backup-switch-mode = "level";
 		reg = <0x51>;
 	};

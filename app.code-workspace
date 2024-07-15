@@ -22,7 +22,8 @@
       "toolchain.h": "c",
       "hwinfo.h": "c",
       "gpio.h": "c",
-      "ioexp.h": "c"
+      "ioexp.h": "c",
+      "rtc.h": "c"
     }
   }
 }
