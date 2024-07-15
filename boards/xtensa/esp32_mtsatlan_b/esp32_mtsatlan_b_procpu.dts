@@ -23,6 +23,7 @@
 		zephyr,console = &uart0;
 		zephyr,shell-uart = &uart0;
 		zephyr,flash = &flash0;
+		zephyr,rtc = &rv3028;
 		zephyr,code-partition = &slot0_partition;
 	};
 
@@ -131,6 +132,36 @@
       line-name = "DE-nRE";
     };
   };
+	rv3028: rv3028@51 {
+    status = "okay";
+		compatible = "microcrystal,rv3028";
+    backup-switch-mode = "level";
+		reg = <0x51>;
+	};
+};
+
+&mdio {
+	pinctrl-0 = <&mdio_default>;
+	pinctrl-names = "default";
+	ref-clk-output-gpios = <&gpio0 17 0>;
+	status = "okay";
+
+	phy: ethernet-phy@1 {
+		compatible = "ethernet-phy";
+		status = "okay";
+		reg = <1>;
+	};
+};
+
+&eth {
+	phy-handle = <&phy>;
+	ref-clk-output-gpios = <&gpio0 17 0>;
+	phy-connection-type = "rmii";
+	status = "okay";
+};
+
+&esp32_bt_hci {
+	status = "disabled";
 };
 
 &timer0 {
@@ -195,28 +226,4 @@
 			reg = <0x00250000 0x005B0000>;
 		};
 	};
-};
-
-&mdio {
-	pinctrl-0 = <&mdio_default>;
-	pinctrl-names = "default";
-	ref-clk-output-gpios = <&gpio0 17 0>;
-	status = "okay";
-
-	phy: ethernet-phy@1 {
-		compatible = "ethernet-phy";
-		status = "okay";
-		reg = <1>;
-	};
-};
-
-&eth {
-	phy-handle = <&phy>;
-	ref-clk-output-gpios = <&gpio0 17 0>;
-	phy-connection-type = "rmii";
-	status = "okay";
-};
-
-&esp32_bt_hci {
-	status = "disabled";
 };

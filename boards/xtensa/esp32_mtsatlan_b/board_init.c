@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2022 Grant Ramsay <grant.ramsay@hotmail.com>
+ * Copyright (c) 2024 HAV
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -9,7 +10,7 @@
 #include <zephyr/kernel.h>
 
 #include <zephyr/logging/log.h>
-LOG_MODULE_REGISTER(power_rmii, CONFIG_PHY_LOG_LEVEL);
+LOG_MODULE_REGISTER(power_phy, CONFIG_PHY_LOG_LEVEL);
 
 #define LAN8720_POWER_PIN	0
 
@@ -21,7 +22,7 @@ static int board_esp32_mtsatlan_b_init(void)
 		return -ENODEV;
 	}
 
-  LOG_INF("Power RMII...");
+  LOG_INF("Power up LAN8720...");
 
 	/* Enable the Ethernet phy */
 	int res = gpio_pin_configure(

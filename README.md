@@ -5,9 +5,9 @@ This is a Zephyr Workspace
 that sets up to build the Template Zephyr application.
 
 ## Setup
-
-- `mkdir <workspace_dir>`
-- `cd <workspace_dir>`
-- `west init -m https://github.com/andriyhrabchak/app.git`
-- `west update`
-
+```
+mkdir <workspace_dir>
+cd <workspace_dir>
+west init -m https://github.com/andriyhrabchak/app.git
+west update
+```
