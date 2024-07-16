@@ -11,18 +11,6 @@ include:
   - name: i2c-device.yaml
 
 properties:
-  clkout-frequency:
-    type: int
-    enum:
-      - 32768
-      - 8192
-      - 1024
-      - 64
-      - 32
-      - 1
-    description: |
-      Frequency of the CLKOUT signal in Hertz (Hz). If omitted, the CLKOUT pin is LOW.
-
   backup-switch-mode:
     type: string
     required: true
@@ -33,23 +21,28 @@ properties:
     description: |
       Automatic backup switchover function selection:
         - disabled: The switchover function is disabled - only one power supply available (VDD)
-        - direct: Direct Switching Mode (DSM): when VDD < VBACKUP, switchover occurs from VDD to
-          VBACKUP without requiring VDD to drop below VTH:LSM (2.0 V)
+        - direct: Direct Switching Mode (DSM): PMU selects pin with the greater voltage (VDD or VBACKUP)
         - level: Level Switching Mode (LSM): when VDD < VTH:LSM (2.0 V) AND VBACKUP > VTH:LSM,
           switchover occurs from VDD to VBACKUP
 
+  charge-switch-mode:
+    type: string
+    required: true
+    enum:
+      - disabled
+      - 1750mv
+      - 3000mv
+      - 4400mv
+    description: |
+      Charging circuit with desired charge pump voltage selection
+      
   trickle-resistor-ohms:
     type: int
     enum:
-      - 3000
-      - 5000
-      - 9000
-      - 15000
+      - 1000
+      - 2000
+      - 7000
+      - 11000
     description: |
       Enable the trickle charger with provided current-limiting resistance in ohms. The trickle
       charger allows a battery or supercapacitor connected to VBACKUP to be charged.
-
-  int-gpios:
-    type: phandle-array
-    description: |
-      GPIO connected to the RV3032 INT interrupt output. This signal is open-drain, active low.

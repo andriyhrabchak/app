@@ -136,6 +136,7 @@
     status = "okay";
 		compatible = "microcrystal,rv3032";
     backup-switch-mode = "level";
+    charge-switch-mode = "disabled";
 		reg = <0x51>;
 	};
 };
