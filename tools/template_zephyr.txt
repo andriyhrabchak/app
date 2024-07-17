@@ -1,0 +1,19 @@
+gpio conf pcf8574t@20 4 ol0
+gpio conf pcf8574t@20 5 ol0
+gpio conf pcf8574t@20 6 ol0
+gpio set pcf8574t@20 4 1
+gpio conf pcf8574t@20 0 oh0
+gpio conf pcf8574t@20 1 oh0
+gpio conf pcf8574t@20 2 oh0
+gpio conf pcf8574t@20 3 oh0
+gpio set pcf8574t@20 0 1
+
+gpio get pcf8574t@20 0
+gpio get pcf8574t@20 1
+gpio get pcf8574t@20 2
+gpio get pcf8574t@20 3
+
+kernel reboot warm
+
+modbus read inpregs 10 50 4
+rtc get rv3032@51

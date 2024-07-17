@@ -141,6 +141,27 @@
 	};
 };
 
+&spi3 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+	pinctrl-0 = <&spim3_default>;
+	pinctrl-names = "default";
+	dma-enabled;
+	clock-frequency = <20000000>;
+	cs-gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
+	sd0: sd@0 {
+		compatible = "zephyr,sdhc-spi-slot";
+		reg = <0>;
+		status = "okay";
+		spi-max-frequency = <20000000>;
+		mmc {
+			compatible = "zephyr,sdmmc-disk";
+			status = "okay";
+		};
+	};
+};
+
 &mdio {
 	pinctrl-0 = <&mdio_default>;
 	pinctrl-names = "default";
