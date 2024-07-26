@@ -24,7 +24,8 @@
       "gpio.h": "c",
       "ioexp.h": "c",
       "rtc.h": "c",
-      "stdint.h": "c"
+      "stdint.h": "c",
+      "fs.h": "c"
     }
   }
 }

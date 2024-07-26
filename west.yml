@@ -13,5 +13,7 @@ manifest:
       import: 
         name-allowlist:
           - hal_espressif
+          - littlefs
+          - fatfs
   self:
-    path: app
+    path: siot

@@ -17,3 +17,7 @@ kernel reboot warm
 
 modbus read inpregs 10 50 4
 rtc get rv3032@51
+
+fs mount fat /SD:
+fs ls /SD:
+fs erase_write_test /SD:/wrtest.txt 50 5

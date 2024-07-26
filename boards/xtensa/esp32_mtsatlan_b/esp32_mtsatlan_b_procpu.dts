@@ -141,25 +141,23 @@
 	};
 };
 
-&spi3 {
-	#address-cells = <1>;
-	#size-cells = <0>;
-	status = "okay";
-	pinctrl-0 = <&spim3_default>;
-	pinctrl-names = "default";
-	dma-enabled;
-	clock-frequency = <20000000>;
-	cs-gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
-	sd0: sd@0 {
-		compatible = "zephyr,sdhc-spi-slot";
-		reg = <0>;
-		status = "okay";
-		spi-max-frequency = <20000000>;
-		mmc {
-			compatible = "zephyr,sdmmc-disk";
-			status = "okay";
-		};
-	};
+&spi2 {
+  #address-cells = <1>;
+  #size-cells = <0>;
+  pinctrl-0 = <&spim2_default>;
+  pinctrl-names = "default";
+  status = "okay";
+  sd0: sd@0 {
+    compatible = "zephyr,sdhc-spi-slot";
+    reg = <0>;
+    status = "okay";
+    label = "SDHC0";
+    spi-max-frequency = <500000>;
+    mmc {
+      compatible = "zephyr,sdmmc-disk";
+      status = "okay";
+    };
+  };
 };
 
 &mdio {
@@ -242,10 +240,15 @@
 			   reg = <0x00210000 0x00040000>;
 		};
     
-    /* 6MB storage */
 		storage_partition: partition@250000 {
 			label = "storage";
-			reg = <0x00250000 0x005B0000>;
+			reg = <0x00250000 0x00006000>;
 		};
-	};
+
+    /* ~6MB littlefs disk */
+		littlefs_partition: partition@256000 {
+			label = "littlefs";
+			reg = <0x00256000 0x005A9fff>;
+		};
+  };
 };
