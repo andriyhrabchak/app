@@ -26,7 +26,7 @@ FATFS app_fat_fs;
 static struct fs_mount_t app_fatfs_mnt = {
 	.type = FS_FATFS,
 	.fs_data = &app_fat_fs,
-	.mnt_point = "/SD:" // Do not change!
+	.mnt_point = "/SD:" // Do not change! Allowed only strings from FF_VOLUME_STRS
 };
 #endif
 

@@ -28,7 +28,8 @@
       "fs.h": "c",
       "log.h": "c",
       "ff.h": "c",
-      "app_version.h": "c"
+      "app_version.h": "c",
+      "ffconf.h": "c"
     }
   }
 }

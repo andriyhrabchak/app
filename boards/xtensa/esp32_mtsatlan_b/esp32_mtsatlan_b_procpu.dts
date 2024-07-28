@@ -85,7 +85,7 @@
 
 	fstab {
 		compatible = "zephyr,fstab";
-		lfs1: lfs1 {
+		lfs: lfs_storage_partition {
 			compatible = "zephyr,fstab,littlefs";
 			mount-point = "/LFS:";
 			partition = <&storage_partition>;
