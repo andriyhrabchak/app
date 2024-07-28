@@ -25,7 +25,8 @@
       "ioexp.h": "c",
       "rtc.h": "c",
       "stdint.h": "c",
-      "fs.h": "c"
+      "fs.h": "c",
+      "log.h": "c"
     }
   }
 }
