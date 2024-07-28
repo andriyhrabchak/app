@@ -241,13 +241,8 @@
     
 		storage_partition: partition@250000 {
 			label = "storage";
-			reg = <0x00250000 0x00006000>;
+			reg = <0x00250000 0x00500000>;
 		};
 
-    /* ~6MB littlefs disk */
-		littlefs_partition: partition@256000 {
-			label = "littlefs";
-			reg = <0x00256000 0x005A9fff>;
-		};
   };
 };
