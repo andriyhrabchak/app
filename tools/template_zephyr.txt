@@ -40,4 +40,4 @@ fs erase_write_test /SD:/wrtest.txt 50000 5
 fs read_test /SD:/wrtest.txt 5
 
 kernel reboot warm
-
+devmem dump -a 3f400000 -s 128
