@@ -15,5 +15,7 @@ manifest:
           - hal_espressif
           - littlefs
           - fatfs
+          - mcuboot
+          - mbedtls
   self:
-    path: siot
+    path: app
