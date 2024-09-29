@@ -4,7 +4,7 @@
 
 		// IntelliSense
 		"C_Cpp.default.compilerPath": "${userHome}\\zephyr-sdk-0.16.8\\arm-zephyr-eabi\\bin\\arm-zephyr-eabi-gcc.exe",
-		"C_Cpp.default.compileCommands": "${workspaceFolder}\\build\\compile_commands.json",
+		"C_Cpp.default.compileCommands": "${workspaceFolder}\\build\\app\\compile_commands.json",
 
 		// File Associations
 		"files.associations": {
