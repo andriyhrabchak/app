@@ -1,0 +1,79 @@
+/*
+ * Copyright (c) 2023 Alvaro Garcia Gomez <maxpowel@gmail.com>
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/ {
+	chosen {
+		zephyr,rtc = &rv3032;
+	};
+
+  leds {
+		compatible = "gpio-leds";
+		red_led: red_led {
+			gpios = <&pcf8574t 6 GPIO_ACTIVE_LOW>;
+			label = "LAN LED";
+    };
+		yellow_led: yellow_led {
+			gpios = <&pcf8574t 5 GPIO_ACTIVE_LOW>;
+			label = "STAT LED";
+		};
+		green_led: green_led {
+			gpios = <&pcf8574t 4 GPIO_ACTIVE_LOW>;
+			label = "POW LED";
+		};
+	};
+
+	relays {
+		compatible = "gpio-leds";
+		relay_1: relay_1 {
+			gpios = <&pcf8574t 0 GPIO_ACTIVE_HIGH>;
+			label = "OUT1 RELAY";
+		};
+		relay_2: relay_2 {
+			gpios = <&pcf8574t 1 GPIO_ACTIVE_HIGH>;
+			label = "OUT2 RELAY";
+		};
+		relay_3: relay_3 {
+			gpios = <&pcf8574t 2 GPIO_ACTIVE_HIGH>;
+			label = "OUT3 RELAY";
+		};
+		relay_4: relay_4 {
+			gpios = <&pcf8574t 3 GPIO_ACTIVE_HIGH>;
+			label = "OUT4 RELAY";
+		};
+  };
+};
+
+&i2c0 {
+	pcf8574t: pcf8574t@20 {
+		status = "okay";
+		compatible = "nxp,pcf8574t";
+		reg = <0x20>;
+    #gpio-cells = <2>;
+    ngpios = <8>;
+		gpio-controller;
+    de-nre-hog {
+      gpio-hog;
+      gpios = <7 GPIO_ACTIVE_HIGH>;
+      output-low;
+      line-name = "DE-nRE";
+    };
+  };
+	rv3032: rv3032@51 {
+    status = "okay";
+		compatible = "microcrystal,rv3032";
+    backup-switch-mode = "level";
+    charge-switch-mode = "disabled";
+		reg = <0x51>;
+	};
+};
+
+&uart1 {
+	modbus0 {
+		compatible = "zephyr,modbus-serial";
+		status = "okay";
+		de-gpios = <&pcf8574t 7 GPIO_ACTIVE_HIGH>;
+	};
+};

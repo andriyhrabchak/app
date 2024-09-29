@@ -18,13 +18,13 @@
       ],
       "problemMatcher": [
         "$gcc"
-      ],
+      ]
     },
     {
       "label": "West Configurable Build",
       "type": "shell",
       "group": {
-        "kind": "build",
+        "kind": "build"
       },
       "command": "west",
       "args": [
@@ -32,7 +32,8 @@
         "-p",
         "${input:pristine}",
         "-b",
-        "${input:board}"
+        "${input:board}",
+        "${input:sysbuild}"
       ],
       "problemMatcher": [
         "$gcc"
@@ -85,6 +86,16 @@
       "options": [
         "esp32_mtsatlan_b/esp32/procpu",
         "esp32_ethernet_kit"
+      ],
+      "description": "See https://docs.zephyrproject.org/latest/boards/index.html"
+    },
+    {
+      "id": "sysbuild",
+      "type": "pickString",
+      "default": "",
+      "options": [
+        "",
+        "--sysbuild"
       ],
       "description": "See https://docs.zephyrproject.org/latest/boards/index.html"
     },

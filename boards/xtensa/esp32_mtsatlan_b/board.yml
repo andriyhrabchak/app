@@ -1,5 +1,0 @@
-board:
-  name: esp32_mtsatlan_b
-  vendor: f&f
-  socs:
-  - name: esp32
