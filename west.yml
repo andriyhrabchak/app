@@ -1,14 +1,10 @@
 manifest:
   remotes:
-    - name: zephyrproject-rtos
-      url-base: https://github.com/zephyrproject-rtos
-    - name: zephyr-sylvio
-      url-base: https://github.com/sylvioalves
-    - name: zephyr-iwasz
-      url-base: https://github.com/iwasz
+    - name: zephyr-andriyhrabchak
+      url-base: https://github.com/andriyhrabchak
   projects:
     - name: zephyr
-      remote: zephyr-iwasz
+      remote: zephyr-andriyhrabchak
       revision: initialize_ref_clk_in_mdio_esp32
       import: 
         name-allowlist:
