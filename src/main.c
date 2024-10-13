@@ -17,6 +17,8 @@
 #include <zephyr/net/net_core.h>
 #include <zephyr/net/net_context.h>
 #include <zephyr/net/net_mgmt.h>
+#include <zephyr/net/sntp.h>
+#include <zephyr/posix/time.h>
 
 #include <app_version.h>
 
@@ -95,6 +97,27 @@ int module_logid_get(const char *name) {
 	return -1;
 }
 
+#define SNTP_SERVER "pool.ntp.org"
+
+int sntp_sync_time(void) {
+	int rc;
+	struct sntp_time now;
+	struct timespec tspec;
+
+	rc = sntp_simple(SNTP_SERVER, 10000, &now);
+	if (rc == 0) {
+		tspec.tv_sec = now.seconds;
+		tspec.tv_nsec = ((uint64_t)now.fraction * (1000lu * 1000lu * 1000lu)) >> 32;
+
+		clock_settime(CLOCK_REALTIME, &tspec);
+
+		LOG_DBG("Acquired time from NTP server: %u", (uint32_t)tspec.tv_sec);
+	} else {
+		LOG_ERR("Failed to acquire SNTP, code %d\n", rc);
+	}
+	return rc;
+}
+
 #define SLEEP_TIME_MS   1000
 
 extern const struct log_backend *log_backend_net_get(void);
@@ -105,6 +128,8 @@ int main(void) {
   LOG_INF("<<<<------ 'Hello World!' v%s on %s ------>>>>", APP_VERSION_STRING, CONFIG_BOARD);
 
 	app_dhcpv4_startup();
+
+  sntp_sync_time();
 
   /* Example how to start the backend if autostart is disabled.
     * This is useful if the application needs to wait the network

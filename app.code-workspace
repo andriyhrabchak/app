@@ -38,7 +38,8 @@
       "net_mgmt.h": "c",
       "ethernet.h": "c",
       "kernel.h": "c",
-      "net_if.h": "c"
+      "net_if.h": "c",
+      "sntp.h": "c"
     }
   }
 }
