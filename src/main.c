@@ -10,19 +10,19 @@
 #include <zephyr/logging/log_backend.h>
 #include <zephyr/logging/log.h>
 #include <zephyr/logging/log_ctrl.h>
-#include <zephyr/net/hostname.h>
 #include <zephyr/shell/shell.h>
 #include <zephyr/shell/shell_uart.h>
+#include <zephyr/net/hostname.h>
+#include <zephyr/net/net_if.h>
+#include <zephyr/net/net_core.h>
+#include <zephyr/net/net_context.h>
+#include <zephyr/net/net_mgmt.h>
 
 #include <app_version.h>
 
 #ifdef CONFIG_GPIO_PCF8574T
 #include <ioexp.h>
 #endif
-
-LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
-
-extern const struct log_backend *log_backend_net_get(void);
 
 #ifdef CONFIG_FAT_FILESYSTEM_ELM
 #include <zephyr/fs/fs.h>
@@ -37,7 +37,48 @@ static struct fs_mount_t app_fatfs_mnt = {
 };
 #endif
 
-#define SLEEP_TIME_MS   1000
+LOG_MODULE_REGISTER(main, LOG_LEVEL_DBG);
+
+static struct net_mgmt_event_callback mgmt_cb;
+
+/* Semaphore to indicate a lease has been acquired. */
+static K_SEM_DEFINE(got_address, 0, 1);
+
+static void handler(struct net_mgmt_event_callback *cb, uint32_t mgmt_event, struct net_if *iface) {
+	int i;
+	bool notified = false;
+
+	if (mgmt_event != NET_EVENT_IPV4_ADDR_ADD) {
+		return;
+	}
+
+	for (i = 0; i < NET_IF_MAX_IPV4_ADDR; i++) {
+		if (iface->config.ip.ipv4->unicast[i].ipv4.addr_type != NET_ADDR_DHCP) {
+			continue;
+		}
+
+		if (!notified) {
+			k_sem_give(&got_address);
+			notified = true;
+		}
+		break;
+	}
+}
+
+/**
+ * Start a DHCP client, and wait for a lease to be acquired.
+ */
+void app_dhcpv4_startup(void) {
+	LOG_INF("Starting DHCPv4...");
+
+	net_mgmt_init_event_callback(&mgmt_cb, handler, NET_EVENT_IPV4_ADDR_ADD);
+	net_mgmt_add_event_callback(&mgmt_cb);
+
+	net_dhcpv4_start(net_if_get_default());
+
+	/* Wait for a lease. */
+	k_sem_take(&got_address, K_FOREVER);
+}
 
 int module_logid_get(const char *name) {
 	uint32_t modules_cnt = log_src_cnt_get(Z_LOG_LOCAL_DOMAIN_ID);
@@ -54,16 +95,16 @@ int module_logid_get(const char *name) {
 	return -1;
 }
 
+#define SLEEP_TIME_MS   1000
+
+extern const struct log_backend *log_backend_net_get(void);
+
 int main(void) {
   int rc = 0;
-  /* 
-   * NET_CONFIG_SETTINGS will init DHCP
-   * NET_SHELL is enabled to test ping, DNS etc
-   */
 
-  LOG_WRN("'Hello World!' v%s on %s", APP_VERSION_STRING, CONFIG_BOARD);
+  LOG_INF("<<<<------ 'Hello World!' v%s on %s ------>>>>", APP_VERSION_STRING, CONFIG_BOARD);
 
-  k_msleep((SLEEP_TIME_MS * 15));
+	app_dhcpv4_startup();
 
   /* Example how to start the backend if autostart is disabled.
     * This is useful if the application needs to wait the network
@@ -71,18 +112,20 @@ int main(void) {
     */
   LOG_WRN("Begin logging to syslog");
   k_msleep(SLEEP_TIME_MS);
-  const struct log_backend *log_backend_net = log_backend_net_get();
   // set filters for all domains
   const struct shell *shell = shell_backend_uart_get_ptr();
   log_filter_set(shell->log_backend->backend, Z_LOG_LOCAL_DOMAIN_ID, module_logid_get("main"), LOG_LEVEL_DBG);
   // disable shell domain logs
   log_backend_deactivate(shell->log_backend->backend);
   // enable net domain logs (syslogs)
+  net_hostname_set("myhost12345", 11); 
+  const struct log_backend *log_backend_net = log_backend_net_get();
   if (log_backend_net->api->init != NULL) {
     log_backend_net->api->init(log_backend_net);
   }
   log_backend_activate(log_backend_net, NULL);
-  net_hostname_set("myhost12345", 11); 
+
+  k_msleep(SLEEP_TIME_MS);
 
   int count = 5;
 	int i = count;

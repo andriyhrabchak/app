@@ -34,7 +34,11 @@
       "hostname.h": "c",
       "shell.h": "c",
       "shell_uart.h": "c",
-      "log_ctrl.h": "c"
+      "log_ctrl.h": "c",
+      "net_mgmt.h": "c",
+      "ethernet.h": "c",
+      "kernel.h": "c",
+      "net_if.h": "c"
     }
   }
 }
