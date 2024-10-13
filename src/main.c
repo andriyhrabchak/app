@@ -125,7 +125,7 @@ extern const struct log_backend *log_backend_net_get(void);
 int main(void) {
   int rc = 0;
 
-  LOG_INF("<<<<------ 'Hello World!' v%s on %s ------>>>>", APP_VERSION_STRING, CONFIG_BOARD);
+  printk("### Run 'app' v%s on %s ###\n", APP_VERSION_STRING, CONFIG_BOARD);
 
 	app_dhcpv4_startup();
 

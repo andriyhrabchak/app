@@ -41,9 +41,12 @@ modbus read inpregs 10 50 4
 ```
 rtc get rv3032@51
 ```
-# test FAT on SD/SDHC/MMC
+# mount FAT on SD/SDHC/MMC (done by app)
 ```
 fs mount fat /SD:
+```
+# test FAT on SD/SDHC/MMC
+```
 fs erase_write_test /SD:/wrtest.txt 50000 5
 fs read_test /SD:/wrtest.txt 5
 fs ls /SD:
