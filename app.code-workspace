@@ -29,7 +29,12 @@
       "log.h": "c",
       "ff.h": "c",
       "app_version.h": "c",
-      "ffconf.h": "c"
+      "ffconf.h": "c",
+      "log_backend.h": "c",
+      "hostname.h": "c",
+      "shell.h": "c",
+      "shell_uart.h": "c",
+      "log_ctrl.h": "c"
     }
   }
 }

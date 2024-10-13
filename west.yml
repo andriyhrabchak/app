@@ -13,5 +13,6 @@ manifest:
           - fatfs
           - mcuboot
           - mbedtls
+          - zcbor
   self:
     path: app
