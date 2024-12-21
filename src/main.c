@@ -118,7 +118,7 @@ int sntp_sync_time(void) {
 	return rc;
 }
 
-#define SLEEP_TIME_MS   1000
+#define SLEEP_TIME_MS   3000
 
 extern const struct log_backend *log_backend_net_get(void);
 
@@ -135,7 +135,7 @@ int main(void) {
     * This is useful if the application needs to wait the network
     * to be fully up before the syslog-net is able to work.
     */
-  LOG_WRN("Begin logging to syslog");
+  LOG_WRN("Begin logging to syslog (%s)", CONFIG_LOG_BACKEND_NET_SERVER);
   k_msleep(SLEEP_TIME_MS);
   // set filters for all domains
   const struct shell *shell = shell_backend_uart_get_ptr();

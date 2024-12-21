@@ -97,7 +97,7 @@
         "",
         "--sysbuild"
       ],
-      "description": "See https://docs.zephyrproject.org/latest/boards/index.html"
+      "description": "See https://docs.zephyrproject.org/latest/build/sysbuild/index.html"
     },
     {
       "id": "pristine",

@@ -5,6 +5,17 @@ This is a Zephyr Workspace
 that sets up to build the Template Zephyr application for custom esp32 board.
 
 ## Setup
+
+Install west: https://docs.zephyrproject.org/latest/develop/west/install.html
+
+Sometimes, need to setup system path to west.exe and install some python modules:
+
+```
+pip3 install pyelftools
+pip install intelhex
+
+```
+
 ```
 mkdir <workspace_dir>
 cd <workspace_dir>
